@@ -1,4 +1,5 @@
 let employees = [];
+let experiences = [];
 let currentZone = null;
 
 const zones = [
@@ -13,7 +14,6 @@ const zones = [
 
 const modal = document.getElementById("modal");
 const openModal = document.getElementById("openModal");
-const addEmployeeBtn = document.getElementById("addEmployeeBtn");
 const closeSelectBtn = document.getElementById("closeSelectBtn");
 const selectModal = document.getElementById("selectModal");
 const btnzone = document.querySelectorAll(".add-btn");
@@ -23,7 +23,7 @@ const profile = document.querySelector(".profile")
 const list = document.getElementById("employee-list");
 
 openModal.addEventListener("click", modalliste);
-
+closeSelectBtn.addEventListener("click", () => selectModal.style.display="none")
 btnzone.forEach((btn, i) => {
     btn.addEventListener("click", () => AddToZone(zones[i]));
 });
@@ -35,6 +35,11 @@ function modalliste() {
     div.innerHTML = `<h2>Ajouter un travailleur</h2>
         <label for="nameInput">Name:</label>
         <input id="nameInput" type="text" placeholder="name">
+
+        <label for="gmailInput">Gmail:</label>
+        <input id="gmailInput" type="text" placeholder="gmail">
+        <label for="phoneInput">Phone:</label>
+        <input id="phoneInput" type="text" placeholder="phone">
         <label for="roleInput">Role</label>
         <select id="roleInput">
             <option>Réceptionniste</option>
@@ -45,29 +50,60 @@ function modalliste() {
             <option>Autre</option>
         </select>
         <label for="photoInput">Photo (URL)</label>
-        <input id="photoInput" type="text" placeholder="URL">
+        <input id="photoInput" type="text" placeholder="URL"> 
         <img id="Imgprofile" class="profile" src="./profile.webp" alt="image-">
+        <div id="experienceList"></div>
+        </div>
+        <button type="button" id="addExperienceBtn">Ajouter une expérience</button>
+
         <button class="btn green" id="addEmployeeBtn">Add</button>
         <button class="btn red" id="closeModalBtn">Close</button>`;
     modal.appendChild(div);
     const closeModalBtn = document.getElementById("closeModalBtn");
     const addEmployeeBtn = document.getElementById("addEmployeeBtn");
     const Imgprofile = document.getElementById("Imgprofile");
+    const addExperienceBtn = document.getElementById("addExperienceBtn")
 
     document.getElementById("photoInput").addEventListener("input", (event) => {
-        console.log(event.target)
         Imgprofile.src = event.target.value || "./profile.webp";
     });
-
+    addExperienceBtn.addEventListener("click", ajouterExperience)
     closeModalBtn.addEventListener("click", () => {
         modal.style.display = "none";
     });
+    addEmployeeBtn.addEventListener("click", addEmployee)
+}
+let experienceCounter = 0;
+function ajouterExperience() {
+    const list = document.getElementById("experienceList");
+    const id = experienceCounter++;
 
-    addEmployeeBtn.addEventListener("click", () => {
+    const exp = document.createElement("div");
+    exp.className = "experience-item";
+    exp.id = id;
+
+    exp.innerHTML = `
+        <label>Company:</label>
+        <input type="text" class="exp-company">
+
+        <label>Role:</label>
+        <input type="text" class="exp-role">
+
+        <label>From:</label>
+        <input type="date" class="exp-from">
+
+        <label>To:</label>
+        <input type="date" class="exp-to">
+
+        <button class="remove-exp" onclick="document.getElementById('${id}').remove()">×</button>
+    `;
+
+    list.appendChild(exp);
+}
+function addEmployee() {
         const photo = document.getElementById("photoInput").value || "./profile.webp";
         const name = document.getElementById("nameInput").value;
         const role = document.getElementById("roleInput").value;
-
         if (!name.trim()) {
             alert("Le nom est obligatoire !");
             return;
@@ -76,10 +112,7 @@ function modalliste() {
         employees.push({ photo, name, role });
         modal.style.display = "none";
         Listemployees();
-    });
 }
-
-
 
 function Listemployees() {
     list.innerHTML = "";
