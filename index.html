@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workspace Staff Manager</title> 
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <aside style="display: none;" class="sidebar">
+        <h2>Liste des employés</h2>
+        <button id="openModal" class="btn green">Ajouter un nouvel employé</button>
+        <div id="employee-list" class="employee-list"></div>
+    </aside>
+    
+    <button id="sidebarbtn" class="sidebarbtn">
+        ||
+    </button>
+    <main class="floor">
+        <!-- <select id="departmentSelect">
+  <option value="">-- Sélectionnez un département --</option>
+  <option value="IT">IT</option>
+  <option value="HR">HR</option>
+  <option value="Finance">Finance</option>
+  <option value="Marketing">Marketing</option>
+</select> -->
+<!-- <div id="workersContainer"></div> -->
+        <div class="zone" id="zoneConference">
+            <h3>Salle de conférence</h3>
+            <button class="add-btn">+</button>
+            <div class="zone-content"></div>
+        </div>
+
+        <div class="zone" id="zoneReception">
+            <h3>Réception</h3>
+            <button class="add-btn">+</button>
+            <div class="zone-content"></div>
+        </div>
+
+        <div class="zone" id="zoneServer">
+            <h3>Salle des serveurs</h3>
+            <button class="add-btn">+</button>
+            <div class="zone-content"></div>
+        </div>
+
+        <div class="zone" id="zoneSecurity">
+            <h3>Salle de sécurité</h3>
+            <button class="add-btn">+</button>
+            <div class="zone-content"></div>
+        </div>
+
+        <div class="zone" id="zoneStaff">
+            <h3>Salle du genre</h3>
+            <button class="add-btn">+</button>
+            <div class="zone-content"></div>
+        </div>
+
+        <div class="zone" id="zoneArchives">
+            <h3>Salle d’archives</h3>
+            <button class="add-btn">+</button>
+            <div class="zone-content"></div>
+        </div>
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Ajouter un travailleur</h2>
+            <label for="nameInput">Name:</label>
+            <input id="nameInput" type="text" placeholder="name">
+            <label for="roleInput">Role</label>
+            <select id="roleInput">
+                <option>Réceptionniste</option>
+                <option>Technicien IT</option>
+                <option>Agent de sécurité</option>
+                <option>Manager</option>
+                <option>Nettoyage</option>
+                <option>Autre</option>
+            </select>
+            <label for="photoInput">Photo (URL)</label>
+            <input id="photoInput" type="text" placeholder="URL">
+            <img class="profile" style="display: none;" src="./profile.webp" alt="image-man">
+            <button class="btn green" id="addEmployeeBtn">Add</button>
+            <button class="btn red" id="closeModalBtn">Close</button>
+        </div>
+    </div>
+
+    <div id="selectModal" class="modal">
+        <div class="modal-content">
+            <h2>Select employee</h2>
+            <div id="selectList"></div>
+            <button class="btn red" id="closeSelectBtn">Close</button>
+        </div>
+    </div>
+
+    <script src="workspace.js"></script>
+</body>
+</html>
