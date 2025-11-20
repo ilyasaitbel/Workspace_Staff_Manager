@@ -1,19 +1,18 @@
 let employees = [];
 let currentZone = null;
 
-    const zones = [
-        { id: "zoneConference", name: "Conference Room" },
-        { id: "zoneReception", name: "Reception" },
-        { id: "zoneServer", name: "Server Room" },
-        { id: "zoneSecurity", name: "Security Room" },
-        { id: "zoneStaff", name: "Staff Room" },
-        { id: "zoneArchives", name: "Archives" }
-    ];
+const zones = [
+    { id: "zoneConference", name: "Conference Room" },
+    { id: "zoneReception", name: "Reception" },
+    { id: "zoneServer", name: "Server Room" },
+    { id: "zoneSecurity", name: "Security Room" },
+    { id: "zoneStaff", name: "Staff Room" },
+    { id: "zoneArchives", name: "Archives" }
+];
 
 
 const modal = document.getElementById("modal");
 const openModal = document.getElementById("openModal");
-const closeModal = document.getElementById("closeModalBtn");
 const addEmployeeBtn = document.getElementById("addEmployeeBtn");
 const closeSelectBtn = document.getElementById("closeSelectBtn");
 const selectModal = document.getElementById("selectModal");
@@ -23,48 +22,78 @@ const sidebar = document.querySelector(".sidebar")
 const profile = document.querySelector(".profile")
 const list = document.getElementById("employee-list");
 
-openModal.addEventListener("click", () => modal.style.display = "flex");
-closeModal.addEventListener("click", () => modal.style.display = "none");
+openModal.addEventListener("click", modalliste);
 
-    btnzone.forEach((btn, i) => {
+btnzone.forEach((btn, i) => {
     btn.addEventListener("click", () => AddToZone(zones[i]));
 });
+function modalliste() {
+    modal.style.display = "flex";
+    modal.innerHTML = "";
+    const div = document.createElement("div");
+    div.className = "modal-content";
+    div.innerHTML = `<h2>Ajouter un travailleur</h2>
+        <label for="nameInput">Name:</label>
+        <input id="nameInput" type="text" placeholder="name">
+        <label for="roleInput">Role</label>
+        <select id="roleInput">
+            <option>Réceptionniste</option>
+            <option>Technicien IT</option>
+            <option>Agent de sécurité</option>
+            <option>Manager</option>
+            <option>Nettoyage</option>
+            <option>Autre</option>
+        </select>
+        <label for="photoInput">Photo (URL)</label>
+        <input id="photoInput" type="text" placeholder="URL">
+        <img id="Imgprofile" class="profile" src="./profile.webp" alt="image-">
+        <button class="btn green" id="addEmployeeBtn">Add</button>
+        <button class="btn red" id="closeModalBtn">Close</button>`;
+    modal.appendChild(div);
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const addEmployeeBtn = document.getElementById("addEmployeeBtn");
+    const Imgprofile = document.getElementById("Imgprofile");
 
-closeSelectBtn.addEventListener("click", () => {
-    selectModal.style.display = "none";
-});
-function ajouteremployees(){
-    const photo = document.getElementById("photoInput").value;
-    const name = document.getElementById("nameInput").value;
-    const role = document.getElementById("roleInput").value;
-    if(photo == "")
-    {
-        profile.style.display="block"
-    }
-    
-    // role.addEventListener("input", () =>{
+    document.getElementById("photoInput").addEventListener("input", (event) => {
+        console.log(event.target)
+        Imgprofile.src = event.target.value || "./profile.webp";
+    });
 
-    // })
+    closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
     addEmployeeBtn.addEventListener("click", () => {
-    employees.push({ photo,name,role });
-    modal.style.display = "none";
-    Listemployees();
-});
+        const photo = document.getElementById("photoInput").value || "./profile.webp";
+        const name = document.getElementById("nameInput").value;
+        const role = document.getElementById("roleInput").value;
+
+        if (!name.trim()) {
+            alert("Le nom est obligatoire !");
+            return;
+        }
+
+        employees.push({ photo, name, role });
+        modal.style.display = "none";
+        Listemployees();
+    });
 }
 
-function Listemployees(){ 
+
+
+function Listemployees() {
     list.innerHTML = "";
     employees.forEach(emp => {
         if (!emp.zone) {
             const div = document.createElement("div");
             // div.className = 'child'
-            div.innerHTML =`<img src="${emp.photo}" class="emp-img">
+            div.innerHTML = `<img src="${emp.photo}" class="emp-img">
             <b>${emp.name}</b> : (${emp.role})`
             list.appendChild(div);
-                div.addEventListener("click", () => {
-            console.log("display")
-        div.style.display="none"
-    })
+            div.addEventListener("click", () => {
+                console.log("display")
+                div.style.display = "none"
+            })
         }
     });
 }
@@ -115,16 +144,14 @@ function renderZones() {
         });
     });
 }
-    sidebarbtn.addEventListener("click", () => {
-        if(sidebar.style.display === "none"){
-            sidebar.style.display = "block"
-        }
-      else{
-            sidebar.style.display = "none"
-        }
-    })
-
-ajouteremployees()
+sidebarbtn.addEventListener("click", () => {
+    if (sidebar.style.display === "none") {
+        sidebar.style.display = "block"
+    }
+    else {
+        sidebar.style.display = "none"
+    }
+})
 // renderZones();
 // Listemployees();
 
@@ -173,10 +200,10 @@ ajouteremployees()
 //     div.innerHTML = `${}` ;
 
 //     let res =  worker.experiences.map(exp => `<li>${exp}</li>`).join("");
-    //  worker.experiences.forEach(exp);
-    // workersContainer.appendChild(div);
+//  worker.experiences.forEach(exp);
+// workersContainer.appendChild(div);
 
-  // créer et afficher des divs
+// créer et afficher des divs
 // });
 
 //     console.log(departmentSelect.value)

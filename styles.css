@@ -148,8 +148,8 @@ select {
 }
 img{
     margin-top: 10px;
-    cursor: pointer;
     border-radius: 70px;
     border: solid 2px #0e4406;
     width: 70px;
+    height: 70px;
 }
