@@ -71,7 +71,7 @@ function modalliste() {
     });
 
     document.getElementById("addExperienceBtn").addEventListener("click", ajouterExperience);
-    document.getElementById("addEmployeeBtn").addEventListener("click", addEmployee);
+    document.getElementById("addEmployeeBtn").addEventListener("click", ajouterEmployee);
     document.getElementById("closeModalBtn").addEventListener("click", () => {
         modal.style.display = "none";
     });
@@ -139,7 +139,7 @@ function validateEmployeeForm() {
     return true;
 }
 
-function addEmployee() {
+function ajouterEmployee() {
     if (!validateEmployeeForm()) return;
 
     const employee = {
@@ -174,6 +174,7 @@ function Listemployees() {
             <b>${emp.name}</b> : (${emp.role})`;
             list.appendChild(div);
             div.addEventListener("click", () => div.style.display = "none");
+            console.log("div")
         }
     });
 }
