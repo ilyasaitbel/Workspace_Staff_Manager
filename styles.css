@@ -99,15 +99,16 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+#modal-content-height {
+    height: 400px;
+}
 .modal-content, .experience-item{
     overflow-y: auto;
     display: grid;
     gap: 10px;
     background: white;
     padding: 10px;
-    width: auto;
-    height: 400px;
+    width: 300px;
     border-radius: 10px;
 }
 .experience-item{

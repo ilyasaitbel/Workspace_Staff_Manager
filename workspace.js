@@ -21,7 +21,7 @@ const sidebar = document.querySelector(".sidebar")
 const list = document.getElementById("employee-list");
 
 openModal.addEventListener("click", modalliste);
-closeSelectBtn.addEventListener("click", () => selectModal.style.display="none");
+closeSelectBtn.addEventListener("click", () => selectModal.style.display = "none");
 btnzone.forEach((btn, i) => {
     btn.addEventListener("click", () => AddToZone(zones[i]));
 });
@@ -31,6 +31,7 @@ function modalliste() {
     modal.innerHTML = "";
     const div = document.createElement("div");
     div.className = "modal-content";
+    div.id = "modal-content-height"
     div.innerHTML = `
         <h2>Ajouter un travailleur</h2>
         <label for="nameInput">Name:</label>
@@ -108,8 +109,8 @@ function ajouterExperience() {
 }
 
 const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}$/;
-const emailRegex = /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/;
-const phoneRegex = /^(\+?\d{6,15})$/;
+const emailRegex = /^[\w.-]+@[\w.-]+\.[A-Za-zone]{2,}$/;
+const phoneRegex = /^\+?\d{1,4}[\s\-]?\(?\d{1,4}\)?[\s\-]?\d{1,4}[\s\-]?\d{1,4}$/;
 const urlRegex = /^(https?:\/\/.*\.(jpg|jpeg|png|gif|webp))$/i;
 
 function validateEmployeeForm() {
@@ -203,15 +204,26 @@ function ToZone(emp) {
 }
 
 function renderZones() {
-    zones.forEach(z => {
-        const zoneDiv = document.getElementById(z.id);
+    zones.forEach(zone => {
+        const zoneDiv = document.getElementById(zone.id);
         const content = zoneDiv.querySelector(".zone-content");
         content.innerHTML = "";
         employees.forEach(emp => {
-            if (emp.zone === z.name) {
+            if (emp.zone === zone.name) {
                 const div = document.createElement("div");
+                div.className = "employee-in-zone"
                 div.innerHTML = `<img src="${emp.photo}" class="emp-img">
-                <b>${emp.name}</b> : (${emp.role})`;
+                <b>${emp.name}</b> : (${emp.role})
+                <button class="remove-emp-btn">X</button>
+                `;
+                const removeBtn = div.querySelector(".remove-emp-btn");
+                removeBtn.addEventListener("click", () => {
+                    console.log(emp.zone)
+                    console.log(emp)
+                    emp.zone = null;
+                    Listemployees();
+                    renderZones();
+                });
                 content.appendChild(div);
             }
         });
@@ -225,10 +237,6 @@ sidebarbtn.addEventListener("click", () => {
         sidebar.style.display = "none"
     }
 })
-// renderZones();
-// Listemployees();
-
-
 
 // const workers = [
 //   {
