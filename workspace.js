@@ -256,8 +256,9 @@ function renderZones() {
 
                 removeBtn.addEventListener("click", () => {
                     emp.zone = null;
+                    console.log(content.children)
 
-                    if (content.children.length === 1) {
+                    if (content.children.length === 1 && (currentZone.id == "zoneReception" || currentZone.id == "zoneServer" || currentZone.id == "zoneSecurity" || currentZone.id == "zoneArchives")) {
                         zoneElement.classList.add("blob");
                     }
 
