@@ -38,6 +38,15 @@ body {
     width: 30px;
     border: none;
     background-color: #ccc;
+    cursor: pointer;
+}
+
+.sidebarbtn:hover {
+    background-color: #aaa;
+}
+
+.sidebarbtn:active {
+    background-color: rgb(39, 102, 123);
 }
 
 .employee-list div, .zone-content div {
