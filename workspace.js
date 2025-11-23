@@ -186,9 +186,11 @@ function Listemployees() {
     employees.forEach(emp => {
         if (!emp.zone) {
             const div = document.createElement("div");
+            div.className = "div-employee"
             div.innerHTML = `<img src="${emp.photo}" class="emp-img">
             <b>${emp.name}</b> : (${emp.role})`;
-            div.addEventListener("click", () => div.style.display = "none");
+            div.querySelector("b").addEventListener("click", () => afficherProfil(emp));
+            div.querySelector("img").addEventListener("click", () => afficherProfil(emp));
             list.appendChild(div);
         }
     });
@@ -200,20 +202,64 @@ function Listemployees() {
 
 function AddToZone(zoneElement) {
     currentZone = zoneElement;
-
+    console.log(currentZone.id)
     selectModal.style.display = "flex";
     const list = document.getElementById("selectList");
     list.innerHTML = "";
 
     employees.forEach(emp => {
+        console.log(emp.zone)
         if (!emp.zone) {
             const btn = document.createElement("button");
-            btn.className = "btn orange";
-            btn.innerText = emp.name;
-
-            btn.addEventListener("click", () => ToZone(emp));
-
-            list.appendChild(btn);
+            if(currentZone.id == "zoneConference" || (currentZone.id == "zoneStaff"))
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);
+            }
+            else if((currentZone.id == "zoneReception") && (emp.role == "Réceptionniste"))
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);
+            }
+            else if((currentZone.id == "zoneServer") && (emp.role == "Technicien IT"))
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);
+            }
+            else if((currentZone.id == "zoneSecurity") && (emp.role == "Agent de sécurité"))
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);
+            }
+            else if(emp.role == "Manager")
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);
+            }
+            else if (emp.role == "Autre" && (currentZone.id == "zoneArchives"))
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);   
+            }
+            else if (emp.role == "Nettoyage" && (currentZone.id != "zoneArchives"))
+            {
+                btn.className = "btn orange";
+                btn.innerText = emp.name;
+                btn.addEventListener("click", () => ToZone(emp));
+                list.appendChild(btn);
+            }
         }
     });
 }
@@ -251,7 +297,6 @@ function renderZones() {
                     <b>${emp.name}</b> (${emp.role})
                     <button class="remove-emp-btn">X</button>
                 `;
-
                 const removeBtn = div.querySelector(".remove-emp-btn");
 
                 removeBtn.addEventListener("click", () => {
@@ -271,7 +316,42 @@ function renderZones() {
         });
     });
 }
+//-------------------------
+// RENDER PROFILE
+//-------------------------
+const profileModal = document.getElementById("profileModal");
+const closeProfile = document.getElementById("closeProfile");
+const profilePhoto = document.getElementById("profilePhoto");
+const profileName = document.getElementById("profileName");
+const profileRole = document.getElementById("profileRole");
+const profileEmail = document.getElementById("profileEmail");
+const profilePhone = document.getElementById("profilePhone");
+const profileExperiences = document.getElementById("profileExperiences");
 
+closeProfile.addEventListener("click", () => profileModal.style.display = "none");
+
+function afficherProfil(emp) {
+    profilePhoto.src = emp.photo;
+    profileName.innerText = emp.name;
+    profileRole.innerText = emp.role;
+    profileEmail.innerText = emp.email;
+    profilePhone.innerText = emp.phone;
+
+    profileExperiences.innerHTML = "<h3>Expériences:</h3>";
+    emp.experiences.forEach(exp => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <p><b>Company:</b> ${exp.company}</p>
+            <p><b>Role:</b> ${exp.role}</p>
+            <p><b>From:</b> ${exp.from}</p>
+            <p><b>To:</b> ${exp.to}</p>
+            <hr>
+        `;
+        profileExperiences.appendChild(div);
+    });
+
+    profileModal.style.display = "flex";
+}
 // sidebarbtn.addEventListener("click", () => {
 //     if (sidebar.style.display === "none") {
 //         sidebar.style.display = "block"

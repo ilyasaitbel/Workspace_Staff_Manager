@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Workspace Staff Manager</title> 
+    <title>Workspace Staff Manager</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
     <aside style="display: none;" class="sidebar">
@@ -13,7 +15,7 @@
         <button id="openModal" class="btn green">Ajouter un nouvel employé</button>
         <div id="employee-list" class="employee-list"></div>
     </aside>
-    
+
     <button id="sidebarbtn" class="sidebarbtn">
         ||
     </button>
@@ -65,7 +67,21 @@
             <button class="btn red" id="closeSelectBtn">Close</button>
         </div>
     </div>
+    <div id="profileModal" class="modal">
+        <div class="modal-content" id="profileContent">
+            <img id="profilePhoto" src="./profile.webp" class="profile-large">
+            <h2 id="profileName"></h2>
+            <button id="closeProfile" class="close-btn">X</button>
+            <p><b>Rôle:</b> <span id="profileRole"></span></p>
+            <p><b>Email:</b> <span id="profileEmail"></span></p>
+            <p><b>Téléphone:</b> <span id="profilePhone"></span></p>
+            <div id="profileExperiences">
+                <h3>Expériences:</h3>
+            </div>
+        </div>
+    </div>
 
     <script src="workspace.js"></script>
 </body>
+
 </html>
