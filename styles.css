@@ -180,8 +180,6 @@ img{
 .blob {
     background: hsla(0, 97%, 64%, 0.641);
     border-radius: 10px;
-    height: fill;
-    width: fill;
     transform: scale(1);
     animation: pulse 2s infinite;
 }
