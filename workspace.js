@@ -134,11 +134,11 @@ function validateEmployee() {
 
     if (!nameRegex.test(name))
         return alert("Nom invalide !");
-    if (!emailRegex.test(email)) 
+    if (!emailRegex.test(email))
         return alert("Email invalide !");
     if (!phoneRegex.test(phone))
         return alert("Numéro invalide !");
-    if (photo && !urlRegex.test(photo)) 
+    if (photo && !urlRegex.test(photo))
         return alert("URL image invalide !");
 
     return true;
@@ -205,60 +205,53 @@ function AddToZone(zoneElement) {
     console.log(currentZone.id)
     selectModal.style.display = "flex";
     const list = document.getElementById("selectList");
+    const employeezone = zoneElement.querySelectorAll(".employee-in-zone");
     list.innerHTML = "";
 
     employees.forEach(emp => {
-        console.log(emp.zone)
         if (!emp.zone) {
             const btn = document.createElement("button");
-            if(currentZone.id == "zoneConference" || (currentZone.id == "zoneStaff"))
-            {
+            if (employeezone.length < 3 && (currentZone.id == "zoneConference" || currentZone.id == "zoneStaff")) {
+                console.log(employeezone.length)
+                console.log(employeezone)
+                console.log(list.appendChild.length)
+                console.log(list.appendChild)
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
                 btn.addEventListener("click", () => ToZone(emp));
                 list.appendChild(btn);
             }
-            else if((currentZone.id == "zoneReception") && (emp.role == "Réceptionniste"))
-            {
+            else if (employeezone.length < 2 && (currentZone.id == "zoneReception") && (emp.role == "Réceptionniste" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
                 btn.addEventListener("click", () => ToZone(emp));
                 list.appendChild(btn);
             }
-            else if((currentZone.id == "zoneServer") && (emp.role == "Technicien IT"))
-            {
+            else if (employeezone.length < 2 && (currentZone.id == "zoneServer") && (emp.role == "Technicien IT" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
                 btn.addEventListener("click", () => ToZone(emp));
                 list.appendChild(btn);
             }
-            else if((currentZone.id == "zoneSecurity") && (emp.role == "Agent de sécurité"))
-            {
+            else if (employeezone.length < 2 && (currentZone.id == "zoneSecurity") && (emp.role == "Agent de sécurité" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
                 btn.addEventListener("click", () => ToZone(emp));
                 list.appendChild(btn);
             }
-            else if(emp.role == "Manager")
-            {
+            else if (employeezone.length < 2 && (currentZone.id == "zoneArchives") && (emp.role == "Autre" || emp.role == "Manager" || emp.role == "Réceptionniste" || emp.role == "Technicien IT" || emp.role == "Agent de sécurité")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
                 btn.addEventListener("click", () => ToZone(emp));
                 list.appendChild(btn);
             }
-            else if (emp.role == "Autre" && (currentZone.id == "zoneArchives"))
-            {
-                btn.className = "btn orange";
-                btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
-                list.appendChild(btn);   
+            else if (employeezone.length == 2 && (currentZone.id == "zoneArchives" || currentZone.id == "zoneSecurity" || currentZone.id == "zoneServer" || currentZone.id == "zoneReception")) {
+                alert("La zone est pleine!");
+                selectModal.style.display = "none";
             }
-            else if (emp.role == "Nettoyage" && (currentZone.id != "zoneArchives"))
-            {
-                btn.className = "btn orange";
-                btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
-                list.appendChild(btn);
+            else if (employeezone.length == 3 && (currentZone.id == "zoneConference" || currentZone.id == "zoneStaff")) {
+                alert("La zone est pleine !");
+                selectModal.style.display = "none";
             }
         }
     });
@@ -352,3 +345,63 @@ function afficherProfil(emp) {
 
     profileModal.style.display = "flex";
 }
+// sidebarbtn.addEventListener("click", () => {
+//     if (sidebar.style.display === "none") {
+//         sidebar.style.display = "block"
+//     }
+//     else {
+//         sidebar.style.display = "none"
+//     }
+// })
+
+// const workers = [
+//   {
+//     name: "Alice",
+//     department: "IT",
+//     experiences: ["Frontend Developer", "React Developer"]
+//   },
+//   {
+//     name: "Karim",
+//     department: "HR",
+//     experiences: ["Recruitment Specialist"]
+//   },
+//   {
+//     name: "Sofia",
+//     department: "Finance",
+//     experiences: ["Accountant", "Financial Analyst", "Risk Advisor"]
+//   },
+//   {
+//     name: "Youssef",
+//     department: "IT",
+//     experiences: ["DevOps Engineer", "Cloud Architect"]
+//   },
+//   {
+//     name: "Maya",
+//     department: "Marketing",
+//     experiences: ["Content Creator", "SEO Specialist"]
+//   },
+//   {
+//     name: "Omar",
+//     department: "Finance",
+//     experiences: ["Junior Accountant"]
+//   }
+// ];
+// const workersContainer = document.getElementById("workersContainer")
+// const departmentSelect = document.getElementById("departmentSelect")
+// departmentSelect.addEventListener("change", () => {
+//     const value = departmentSelect.value;
+//     const filtered = workers.filter(w => w.department === value);
+
+//     filtered.forEach(worker => {
+//         const div = document.createElement("div");
+//     div.innerHTML = `${}` ;
+
+//     let res =  worker.experiences.map(exp => `<li>${exp}</li>`).join("");
+//  worker.experiences.forEach(exp);
+// workersContainer.appendChild(div);
+
+// créer et afficher des divs
+// });
+
+//     console.log(departmentSelect.value)
+// })
