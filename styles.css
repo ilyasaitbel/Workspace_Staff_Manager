@@ -223,9 +223,13 @@ img{
     color: #2a0d09;
     background-color: #ff5745;
     cursor: pointer;
-    /* z-index: 100; */
 }
 .div-employee{
     cursor: pointer;
-     box-shadow: 10px 10px 5px lightblue inset;
+    box-shadow: 10px 10px 5px lightblue inset;
+    transition: background-color 0.5s ease-out, transform 0.5s ease-out;
+}
+.div-employee:hover{
+    background-color: lightgreen;
+    transform: scale(1.1);
 }
