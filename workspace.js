@@ -1,8 +1,6 @@
 let employees = [];
 let experienceCounter = 0;
-let currentZone = null;
 
-// DOM elements
 const modal = document.getElementById("modal");
 const openModal = document.getElementById("openModal");
 const closeSelectBtn = document.getElementById("closeSelectBtn");
@@ -14,9 +12,6 @@ const list = document.getElementById("employee-list");
 
 const zones = document.querySelectorAll(".zone");
 
-//-------------------------
-// EVENT LISTENERS
-//-------------------------
 openModal.addEventListener("click", modalliste);
 closeSelectBtn.addEventListener("click", () => selectModal.style.display = "none");
 
@@ -90,7 +85,7 @@ function modalliste() {
 }
 
 //-------------------------
-// EXPERIENCE SYSTEM
+// EXPERIENCE
 //-------------------------
 
 function ajouterExperience() {
@@ -145,7 +140,7 @@ function validateEmployee() {
 }
 
 //-------------------------
-// ADD EMPLOYEE
+// AJOUTER EMPLOYEE
 //-------------------------
 
 function ajouterEmployee() {
@@ -174,6 +169,7 @@ function ajouterEmployee() {
     modal.style.display = "none";
 
     Listemployees();
+    saveState();
 }
 
 //-------------------------
@@ -201,8 +197,7 @@ function Listemployees() {
 //-------------------------
 
 function AddToZone(zoneElement) {
-    currentZone = zoneElement;
-    console.log(currentZone.id)
+    console.log(zoneElement.id)
     selectModal.style.display = "flex";
     const list = document.getElementById("selectList");
     const employeezone = zoneElement.querySelectorAll(".employee-in-zone");
@@ -211,45 +206,45 @@ function AddToZone(zoneElement) {
     employees.forEach(emp => {
         if (!emp.zone) {
             const btn = document.createElement("button");
-            if (employeezone.length < 3 && (currentZone.id == "zoneConference" || currentZone.id == "zoneStaff")) {
+            if (employeezone.length < 3 && (zoneElement.id == "zoneConference" || zoneElement.id == "zoneStaff")) {
                 console.log(employeezone.length)
                 console.log(employeezone)
                 console.log(list.appendChild.length)
                 console.log(list.appendChild)
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
+                btn.addEventListener("click", () => ToZone(emp, zoneElement));
                 list.appendChild(btn);
             }
-            else if (employeezone.length < 2 && (currentZone.id == "zoneReception") && (emp.role == "Réceptionniste" || emp.role == "Manager" || emp.role == "Nettoyage")) {
+            else if (employeezone.length < 2 && (zoneElement.id == "zoneReception") && (emp.role == "Réceptionniste" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
+                btn.addEventListener("click", () => ToZone(emp, zoneElement));
                 list.appendChild(btn);
             }
-            else if (employeezone.length < 2 && (currentZone.id == "zoneServer") && (emp.role == "Technicien IT" || emp.role == "Manager" || emp.role == "Nettoyage")) {
+            else if (employeezone.length < 2 && (zoneElement.id == "zoneServer") && (emp.role == "Technicien IT" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
+                btn.addEventListener("click", () => ToZone(emp, zoneElement));
                 list.appendChild(btn);
             }
-            else if (employeezone.length < 2 && (currentZone.id == "zoneSecurity") && (emp.role == "Agent de sécurité" || emp.role == "Manager" || emp.role == "Nettoyage")) {
+            else if (employeezone.length < 2 && (zoneElement.id == "zoneSecurity") && (emp.role == "Agent de sécurité" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
+                btn.addEventListener("click", () => ToZone(emp, zoneElement));
                 list.appendChild(btn);
             }
-            else if (employeezone.length < 2 && (currentZone.id == "zoneArchives") && (emp.role == "Autre" || emp.role == "Manager" || emp.role == "Réceptionniste" || emp.role == "Technicien IT" || emp.role == "Agent de sécurité")) {
+            else if (employeezone.length < 2 && (zoneElement.id == "zoneArchives") && (emp.role == "Autre" || emp.role == "Manager" || emp.role == "Réceptionniste" || emp.role == "Technicien IT" || emp.role == "Agent de sécurité")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
-                btn.addEventListener("click", () => ToZone(emp));
+                btn.addEventListener("click", () => ToZone(emp, zoneElement));
                 list.appendChild(btn);
             }
-            else if (employeezone.length == 2 && (currentZone.id == "zoneArchives" || currentZone.id == "zoneSecurity" || currentZone.id == "zoneServer" || currentZone.id == "zoneReception")) {
+            else if (employeezone.length == 2 && (zoneElement.id == "zoneArchives" || zoneElement.id == "zoneSecurity" || zoneElement.id == "zoneServer" || zoneElement.id == "zoneReception")) {
                 alert("La zone est pleine!");
                 selectModal.style.display = "none";
             }
-            else if (employeezone.length == 3 && (currentZone.id == "zoneConference" || currentZone.id == "zoneStaff")) {
+            else if (employeezone.length == 3 && (zoneElement.id == "zoneConference" || zoneElement.id == "zoneStaff")) {
                 alert("La zone est pleine !");
                 selectModal.style.display = "none";
             }
@@ -257,15 +252,16 @@ function AddToZone(zoneElement) {
     });
 }
 
-function ToZone(emp) {
-    currentZone.classList.remove("blob");
+function ToZone(emp, zoneElement) {
+    zoneElement.classList.remove("blob");
 
-    const zoneName = currentZone.querySelector("h3").innerText;
+    const zoneName = zoneElement.querySelector("h3").innerText;
     emp.zone = zoneName;
 
     renderZones();
     selectModal.style.display = "none";
     Listemployees();
+    saveState();
 }
 
 //-------------------------
@@ -296,12 +292,13 @@ function renderZones() {
                     emp.zone = null;
                     console.log(content.children)
 
-                    if (content.children.length === 1 && (currentZone.id == "zoneReception" || currentZone.id == "zoneServer" || currentZone.id == "zoneSecurity" || currentZone.id == "zoneArchives")) {
+                    if (content.children.length === 1 && (zoneElement.id == "zoneReception" || zoneElement.id == "zoneServer" || zoneElement.id == "zoneSecurity" || zoneElement.id == "zoneArchives")) {
                         zoneElement.classList.add("blob");
                     }
 
                     Listemployees();
                     renderZones();
+                    saveState();
                 });
 
                 content.appendChild(div);
@@ -310,7 +307,7 @@ function renderZones() {
     });
 }
 //-------------------------
-// RENDER PROFILE
+// RENDER PROFILE DETAILS
 //-------------------------
 const profileModal = document.getElementById("profileModal");
 const closeProfile = document.getElementById("closeProfile");
@@ -345,14 +342,22 @@ function afficherProfil(emp) {
 
     profileModal.style.display = "flex";
 }
-// sidebarbtn.addEventListener("click", () => {
-//     if (sidebar.style.display === "none") {
-//         sidebar.style.display = "block"
-//     }
-//     else {
-//         sidebar.style.display = "none"
-//     }
-// })
+//-------------------------
+// LOCALSTORAGE
+//-------------------------
+function saveState() {
+    localStorage.setItem("employeesData", JSON.stringify(employees));
+}
+function loadState() {
+    const stored = localStorage.getItem("employeesData");
+    if (stored) {
+        employees = JSON.parse(stored);
+        Listemployees();
+        renderZones();
+    }
+}
+
+window.addEventListener("load", loadState);
 
 // const workers = [
 //   {
