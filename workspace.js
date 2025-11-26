@@ -45,10 +45,10 @@ function modalliste() {
         <input id="nameInput" type="text">
 
         <label>Email:</label>
-        <input id="gmailInput" type="text">
+        <input id="gmailInput" type="email">
 
         <label>Phone:</label>
-        <input id="phoneInput" type="text">
+        <input id="phoneInput" type="tel">
 
         <label>Role:</label>
         <select id="roleInput">
@@ -61,7 +61,7 @@ function modalliste() {
         </select>
 
         <label>Photo (URL):</label>
-        <input id="photoInput" type="text">
+        <input id="photoInput" type="URL">
         <img id="Imgprofile" class="profile" src="./profile.webp">
 
         <div id="experienceList"></div>
