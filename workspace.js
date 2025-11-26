@@ -222,7 +222,7 @@ function AddToZone(zoneElement) {
                 btn.addEventListener("click", () => ToZone(emp, zoneElement));
                 list.appendChild(btn);
             }
-            else if (employeezone.length < 2 && (zoneElement.id == "zoneServer") && (emp.role == "Technicien IT" || emp.role == "Manager" || emp.role == "Nettoyage")) {
+            else if (employeezone.length < 4 && (zoneElement.id == "zoneServer") && (emp.role == "Technicien IT" || emp.role == "Manager" || emp.role == "Nettoyage")) {
                 btn.className = "btn orange";
                 btn.innerText = emp.name;
                 btn.addEventListener("click", () => ToZone(emp, zoneElement));
@@ -245,7 +245,7 @@ function AddToZone(zoneElement) {
                 selectModal.style.display = "none";
             }
             else if (employeezone.length == 3 && (zoneElement.id == "zoneConference" || zoneElement.id == "zoneStaff")) {
-                alert("La zone est pleine !");
+                return alert("La zone est pleine !");
                 selectModal.style.display = "none";
             }
         }
