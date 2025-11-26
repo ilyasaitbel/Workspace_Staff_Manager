@@ -358,3 +358,20 @@ function loadState() {
 }
 
 window.addEventListener("load", loadState);
+
+// const zons = document.querySelectorAll(".zone-content")
+// console.log(zons)
+// function affichi(p) {
+// zons.forEach((zon){
+//     zon.children.
+// })
+// }
+function recherch(entreprise){
+    employees.forEach((emp) => {
+        if(emp.experiences.company == entreprise)
+        {
+            console.log(emp.name)
+        }
+    })
+}
+recherch(Ocp)
